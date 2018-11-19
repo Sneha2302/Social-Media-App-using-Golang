@@ -7,7 +7,7 @@ Sneha Munden (sm7352)
 
 Architecture Diagram:
 
-![Screenshot](Arch.png)
+![Screenshot](Arch.jpg)
 
 Setup:
 Clone the repository and set the GOPATH to the /web folder.
