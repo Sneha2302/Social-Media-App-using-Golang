@@ -5,7 +5,19 @@ import (
 	"html/template"
 	"net/http"
 	"log"
+	// "strings"
+	// "os"
+	// "time"
+	// "golang.org/x/net/context"
+	// "google.golang.org/grpc"
+	//pb "project/utils/ProtoDef"
 )
+const (
+ 	address     = "localhost:50051"
+ 	defaultName = "world"
+ )
+
+ // var rpcCaller pb.GreeterClient
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
@@ -28,7 +40,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if pwd == actualPassword {
-			//Login successful, set cookie and goto home
+			//Login successful, set cookie and goto tweet page 
 			cookie := http.Cookie{Name: "username", Value: usr, MaxAge: 2800}
 			http.SetCookie(w, &cookie)
 			http.Redirect(w, r, "/tweet", http.StatusSeeOther)
@@ -38,6 +50,33 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 			return
 		}
+
+		// ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+		// defer cancel()
+		// reply, err := rpcCaller.Login(ctx, &pb.Credentials{Uname: usr, Pwd: pwd})
+		// //User does not exist - send to registration page
+		// if err != nil {
+		// 	fmt.Println("Debug: Login rpc failed", err.Error())
+		// 	if err.Error() == "Wrong Password" {
+		// 		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		// 		return
+		// 	} else {
+		// 		http.Redirect(w, r, "/registration", http.StatusSeeOther)
+		// 		return
+		// 	}
+
+		// } else if err == nil && reply.Status == true {
+		// 	debugPrint("debug: user successfully logged in")
+		// 	expiration := 2800
+		// 	cookie := http.Cookie{Name: "username", Value: usr, MaxAge: expiration}
+		// 	http.SetCookie(w, &cookie)
+		// 	http.Redirect(w, r, "/tweet", http.StatusSeeOther)
+		// 	return
+		// } else {
+		// 	log.Println("Major issue")
+		// 	http.Redirect(w, r, "/login", http.StatusSeeOther)
+		// 	return
+		// }
 	}
 }
 
@@ -247,6 +286,29 @@ func deleteAccHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+
+	// conn, err := grpc.Dial(address, grpc.WithInsecure())
+	// if err != nil {
+	// 	log.Fatalf("did not connect: %v", err)
+	// }
+	// defer conn.Close()
+	// //c := pb.NewGreeterClient(conn)
+	// rpcCaller = pb.NewGreeterClient(conn)
+
+	// // Contact the server and print out its response. TO test if RPC is working
+	// name := defaultName
+	// if len(os.Args) > 1 {
+	// 	name = os.Args[1]
+	// }
+	// ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	// defer cancel()
+	// r, err := rpcCaller.SayHello(ctx, &pb.HelloRequest{Name: name})
+	// if err != nil {
+	// 	log.Fatalf("Please bring up the Back-End Server first. Could not greet: %v", err)
+	// }
+	// log.Printf("RPC is working %s", r.Message)
+	//end of test RPC
+
 	// All handler functions
 	http.HandleFunc("/tweet", tweetHandler)
 	http.HandleFunc("/users", usersHandler)
