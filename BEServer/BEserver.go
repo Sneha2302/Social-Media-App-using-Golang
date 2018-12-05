@@ -1,14 +1,12 @@
 package main
 
 import (
-	"log"
-	"net"
-
 	"errors"
 	"fmt"
-	"os"
-	pb "social_media_app-golang/package1"
-	"strconv"
+	"log"
+	"net"
+	//pb "social_media_app-golang/package1"
+	pb "package1"
 	"sync"
 	"time"
 
@@ -21,6 +19,7 @@ const (
 	NORMAL = iota
 	VIEWCHANGE
 	RECOVERING
+	port = ":50051"
 )
 
 // server is used to implement helloworld.GreeterServer.
@@ -724,103 +723,12 @@ func (srv *server) ViewChange(ctx context.Context, args *pb.ViewChangeArgs) (rep
 }
 
 func main() {
-
-	//fetch ServerID to know index in peers list
-
-	ServerID, err := strconv.Atoi(os.Args[0])
-
-	fmt.Println(ServerID)
+	lis, err := net.Listen("tcp", port)
 	if err != nil {
-		//handle Error
-		fmt.Println("Debug: Invalid ServerID, Exit", err)
-		os.Exit(2)
+		log.Fatalf("failed to listen: %v", err)
 	}
-
-	//set up backend server for VSReplication
-	srv := &server{
-		me:             ServerID,
-		currentView:    0,
-		lastNormalView: 0,
-		status:         NORMAL,
-		opNo:           0,
-	}
-
-	srv.log = append(srv.log, "")
-	srv.peers = append(srv.peers, ":50051")
-	srv.peers = append(srv.peers, ":50052")
-	srv.peers = append(srv.peers, ":50053")
-
-	// Error if user enters some random server
-	if ServerID >= len(srv.peers) || ServerID < 0 {
-		fmt.Printf("Debug: ServerID %d is not supported. Server Exiting \n", ServerID)
-		os.Exit(2)
-	}
-
-	//Set up listener on your own port
-	lis, err := net.Listen("tcp", srv.peers[srv.me])
-	if err != nil {
-		log.Fatalf("Debug: failed to listen, server could not be started: %v", err)
-		os.Exit(2)
-	} else {
-		fmt.Printf("Woo hoo! server %d started \n", srv.me)
-	}
-
-	//Set up rpccaller objects to other peer servers
-	for index, port := range srv.peers {
-		conn, err := grpc.Dial(port, grpc.WithInsecure())
-		if err != nil {
-			fmt.Printf("did not connect to port %s \n", port)
-			//log.Fatal("Error: %s",err)
-		}
-		defer conn.Close()
-		//c := pb.NewGreeterClient(conn)
-		srv.peerRPC[index] = pb.NewGreeterClient(conn)
-	}
-
-	//This code can probably be used to test if all servers are up using heartbeat. Needs fixes, commented for now
-
-	//ch := make(chan pb.GreeterClient,len(srv.peers))
-	//fmt.Printf("Channel created \n")
-	//for i,rpcclient := range srv.peerRPC{
-	//	fmt.Println("reached1 i=",i)
-	//	if(i!=srv.me) {
-	//		fmt.Printf("started this")
-	//		ch <- rpcclient
-	//		fmt.Println("reached this")
-	//	}
-	//	fmt.Println("reached 2")
-	//}
-	//fmt.Printf("Debug: Waiting for other servers to come up \n %d of 3 servers are up \n",len(ch)-1)
-	//
-	//for len(ch)!=0{
-	//	rpcclient := <-ch
-	//	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	//	defer cancel()
-	//	_, err := rpcclient.HeartBeat(ctx, &pb.HeartBeatRequest{})
-	//	if(err!=nil){
-	//		ch<-rpcclient
-	//		fmt.Println(err)
-	//	}
-	//	fmt.Printf("Debug: %d of 3 servers are up \n",len(ch)-1 )
-	//	time.Sleep(3*time.Second)
-	//}
-
-	// This is a test for connected-ness between Server's for rpc. Each server tries to contact every other sever
-	for index, rpccaller := range srv.peerRPC {
-		if index != srv.me {
-			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-			defer cancel()
-			reply, err := rpccaller.WhoIsPrimary(ctx, &pb.WhoisPrimaryRequest{})
-			if err != nil {
-				fmt.Printf("Could not connect to Server %d \n", index)
-			} else {
-				fmt.Printf("Server %d replied that the primary is %d \n", index, reply.Index)
-			}
-		}
-	}
-
 	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, srv)
+	pb.RegisterGreeterServer(s, &server{})
 	// Register reflection service on gRPC server.
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
