@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+ <style type="text/css">
+    * {
+box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+body {
+font-family: Arial;
+background-color: #cdf0fb;
+padding: 10px;
+}
+.login {
+margin: 20px auto;
+width: 300px;
+}
+.login-screen {
+background-color: #FFF;
+padding: 20px;
+border-radius: 5px
+}
+
+.app-title {
+text-align: center;
+color: #777;
+}
+
+.login-form {
+text-align: center;
+}
+.control-group {
+margin-bottom: 10px;
+}
+
+input {
+text-align: center;
+background-color: #ECF0F1;
+border: 2px solid transparent;
+border-radius: 3px;
+font-size: 16px;
+font-weight: 200;
+padding: 10px 0;
+width: 250px;
+transition: border .5s;
+}
+
+input :focus {
+border: 2px solid #3498DB;
+box-shadow: none;
+}
+
+textarea {
+text-align: center;
+background-color: #ECF0F1;
+border: 2px solid transparent;
+border-radius: 3px;
+font-size: 16px;
+font-weight: 200;
+padding: 10px 0;
+transition: border .5s;
+width: 300px;
+}
+
+textarea :focus {
+border: 2px solid #3498DB;
+box-shadow: none;
+
+}
+
+.btn {
+  border: 2px solid transparent;
+  background: #3498DB;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 250px;
+  margin: 0 auto;
+}
+
+.btn:hover {
+  background-color: #2980B9;
+}
+
+.btn1 {
+  border: 2px solid transparent;
+  background: #3498DB;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 2px 0;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 250px;
+  margin: 0 auto;
+}
+
+.login-link {
+  font-size: 12px;
+  color: #444;
+  display: block;
+  margin-top: 12px;
+}
+    .fa {
+        padding: 20px;
+        font-size: 30px;
+        width: 50px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .fa:hover {
+        opacity: 0.7;
+    }
+
+    .fa-twitter {
+        background: #55ACEE;
+        color: white;
+    }
+
+    .topnav {
+        overflow: hidden;
+        text-align: center;
+        background-color: #0098e0;
+    }
+
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    .topnav a:hover {
+        background-color: #fff;
+        color: #000;
+    }
+
+    .topnav a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+
+<body>
+<div class="topnav">
+    <a href="home">Home</a>
+    <a href="users">Find Users</a>
+    <a href="logout">Logout</a>
+    <a href="deleteAccount">Delete Account</a>
+</div>
+<br/>
+<div class="login">
+
+<form method="post" action="home" id="tweetform">
+ <textarea name="tweet" form="tweetform" maxlength="100" rows="6" cols="50" placeholder="What's happening?"></textarea>
+ <br/><br/><br/>
+   <input type="submit" class="btn1" value="Tweet">
+</form>
+</div>
+</body>
+</html>
+
