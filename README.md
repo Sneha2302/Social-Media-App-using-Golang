@@ -11,7 +11,9 @@ Architecture Diagram:
 
 Setup:
 Clone the repository and go to path ./grpc/server to run the Backend server. 
+
 Run the backend server with command go run server.go
+
 In other terminal go build the the files and run the main using command go run main.go
   
 Go to - http://localhost:9090/login
