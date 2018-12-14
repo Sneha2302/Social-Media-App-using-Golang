@@ -84,54 +84,37 @@ box-shadow: none;
 }
   </style>
 <body>
-  <form method="post" action="registration">
+  <form method="post">
   <div class="login">
     <div class="login-screen"> 
       <div class="app-title">
         <h1>Register</h1>
-    Please Sign Up below!</br>
+        Please Sign Up below!</br>
       </div>
 </br>
       <div class="login-form">
         <div class="control-group">
-        <input type="text" class="login-field" value="" placeholder="username" name="username" id="login-name">
+        <input type="text" class="login-field" value="" placeholder="Username" name="username" id="login-name">
         <label class="login-field-icon fui-user" for="login-name"></label>
         </div>
 
         <div class="control-group">
-        <input type="password" class="login-field" value="" placeholder="password" name="password_1" id="login-pass">
+        <input type="password" class="login-field" value="" placeholder="Password" name="password1" id="login-pass">
+        <label class="login-field-icon fui-lock" for="login-pass"></label>
+        </div>
+
+        <div class="control-group">
+        <input type="password" class="login-field" value="" placeholder="Repeat password" name="password2" id="login-pass">
         <label class="login-field-icon fui-lock" for="login-pass"></label>
         </div>
       
-        <button type="submit" class="btn btn-primary btn-large btn-block" name="reg_user">Register</button>
-        <a class="login-link" href="login">Login</a>
+        <input type="submit" class="btn btn-primary btn-large btn-block" value="Register" name="Register">
+        <a class="login-link" href="/login">Login</a>
       </div>
     </div>
   </div>
 
 
-
-
-
-  <!-- <div>
-  	<h2>Register</h2></br>
-  	PLease Sign Up below!</br>
-  </div>
-	
-  	<div class="input-group">
-  	  <label>Username</label>
-  	  <input type="text" name="username">
-  	</div>
-  	<div class="input-group">
-  	  <label>Password</label>
-  	  <input type="password" name="password_1">
-  	</div>
-  	<div class="input-group">
-  	  <button type="submit" class="btn" name="reg_user">Register</button>
-  	</div>
-  	<p>
-  		Already a member? <a href="login">Sign in</a>
-  	</p> -->
   </form>
 </body>
 </html>

@@ -161,19 +161,35 @@ box-shadow: none;
 <body>
 <div class="topnav">
     <a href="home">Home</a>
-    <a href="users">Find Users</a>
+    <a href="profile">Profile</a>
     <a href="logout">Logout</a>
-    <a href="deleteAccount">Delete Account</a>
 </div>
 <br/>
 <div class="login">
 
-<form method="post" action="home" id="tweetform">
- <textarea name="tweet" form="tweetform" maxlength="100" rows="6" cols="50" placeholder="What's happening?"></textarea>
+<form method="Post">
+ <textarea name="tweet_text" maxlength="100" rows="6" cols="50" placeholder="What's happening?"></textarea>
  <br/><br/><br/>
-   <input type="submit" class="btn1" value="Tweet">
+   <input type="submit" class="btn1" value="tweet" name="submit">
 </form>
 </div>
+
+
+      <h3>Hi, {{.UName}}!</h3>
+
+        <h3>Tweets: </h3>
+        {{range .Posts}}
+        <h4>{{.}}</h4>
+        {{end}}
+        <br>
+        <h2>Other users:</h2>
+        {{range .Unfollow}}
+        <h4>{{.}}</h4>
+        <form method="Post">
+          <input type="hidden" value={{.}} name="unfollow">
+          <input type="submit" value="follow" name="submit">
+        </form>
+        {{end}}
 </body>
 </html>
 

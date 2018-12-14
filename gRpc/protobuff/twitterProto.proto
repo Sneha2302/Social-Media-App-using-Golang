@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.twitter_web";
+option java_outer_classname = "TwitterPageProto";
+
+package proto;
+
+service Web{
+
+	rpc AddUser(AddUserRequest) returns (BoolReply){}
+
+	rpc UserExists(UserExistsRequest) returns (BoolReply){}
+
+	rpc GetUser(GetUserRequest) returns (GetUserReply){}
+
+	rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoReply){}
+
+	rpc Follow(FollowRequest) returns (BoolReply){}
+
+	rpc UnFollow(FollowRequest) returns (BoolReply){}
+
+	rpc Join(JoinRequest) returns (BoolReply){}
+
+
+}
+
+message AddUserRequest{
+	string UName = 1;
+	string pwd1 = 2;
+	string pwd2 = 3;
+}
+
+message BoolReply{
+	bool t = 1;
+}
+
+message UserExistsRequest{
+	string UName = 1;
+	string pwd = 2;
+}
+
+message Twitter_User{
+	string UName = 1;
+    string pwd = 2;
+	repeated TwitterPosts Posts = 3;
+	repeated string Follow = 4;
+}
+
+message TwitterPosts{
+	string Contents = 1;
+	int64 Date = 2;
+	string User = 3;
+}
+
+message GetUserRequest{
+	string uname = 1;
+}
+
+message GetUserReply{
+	Twitter_User Userinfo = 1;
+}
+
+
+
+message GetUserInfoRequest{
+	string username = 1;
+}
+
+message GetUserInfoReply {
+	string uName = 1;
+	repeated string unfollow = 2;
+	repeated string Follow = 3;
+	repeated string Posts = 4;
+}
+message Page {
+	string uName = 1;
+	repeated string unfollow = 2;
+	repeated string follow = 3;
+	repeated string Posts = 4;
+}
+message GetUserInfo{
+	Page tweets = 1;
+}
+
+message FollowRequest{
+	string uName = 1;
+	string othername = 2;
+}
+message IsLeaderRequest{
+	string address = 1;
+}
+message JoinRequest{
+	string nodeID = 1;
+	string remoteAddr = 2;
+}
