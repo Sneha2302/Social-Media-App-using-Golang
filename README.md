@@ -10,13 +10,19 @@ Architecture Diagram:
 ![Screenshot](Arch.jpg)
 
 Setup:
-Clone the repository and go to path ./grpc/server to run the Backend server. 
+Clone the repository and change the name of the cloned folder to twitterPt2 
+Now go to path ./grpc/server to run the Raft Backend Servers. 
+Run the following commands in 3 seperate terminal windows to run 3 nodes as backend server
+      go run server.go -storageDir /tmp/nodeA -nodeName nodeA -rpcPort :9093 -raftPort :12000 -isLeader=true
+      go run server.go -storageDir /tmp/nodeB -nodeName nodeB -rpcPort :9094 -raftPort :13000 -isLeader=false
+      go run server.go -storageDir /tmp/nodeC -nodeName nodeC -rpcPort :9095 -raftPort :14000 -isLeader=false
 
-Run the backend server with command go run server.go
 
-In other terminal go build the the files and run the main using command go run main.go
-  
-Go to - http://localhost:9090/login
+Now in a separate terminal window run the client server with the following command
+      go run main.go
+
+
+  Go to - http://localhost:9090/login
 
 
 
