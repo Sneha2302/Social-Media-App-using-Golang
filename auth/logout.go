@@ -2,7 +2,7 @@ package auth
 
 import (
 	"net/http"
-	"twitterPt2/auth/cookie"
+	"social_media_app-golang/auth/cookie"
 )
 
 func Logout(w http.ResponseWriter, r *http.Request) {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"twitterPt2/gRpc/client"
+	"social_media_app-golang/gRpc/client"
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {
@@ -24,14 +24,14 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		}
 		redirectTarget := "/login"
 		uName := r.Form.Get("username")
-			pWord1 := r.Form.Get("password1")
-			pWord2 := r.Form.Get("password2")
-			if ok := client.RegisterRpc(uName, pWord1, pWord2); ok {
-				fmt.Println("User registered success")
-			} else {
-				fmt.Println("User registration failed")
-				fmt.Println(ok)
-			}
+		pWord1 := r.Form.Get("password1")
+		pWord2 := r.Form.Get("password2")
+		if ok := client.RegisterRpc(uName, pWord1, pWord2); ok {
+			fmt.Println("User registered success")
+		} else {
+			fmt.Println("User registration failed")
+			fmt.Println(ok)
+		}
 		http.Redirect(w, r, redirectTarget, http.StatusFound)
 	default:
 		fmt.Fprintf(w, "method not supported.")

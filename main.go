@@ -1,9 +1,9 @@
 package main
 
 import (
-	"twitterPt2/auth"
 	"net/http"
-	"twitterPt2/web"
+	"social_media_app-golang/auth"
+	"social_media_app-golang/web"
 )
 
 func main() {

@@ -3,9 +3,9 @@ package auth
 import (
 	"fmt"
 	"html/template"
-	"net/http" 
-	"twitterPt2/gRpc/client"
-	"twitterPt2/auth/cookie"
+	"net/http"
+	"social_media_app-golang/auth/cookie"
+	"social_media_app-golang/gRpc/client"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
@@ -25,13 +25,13 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		}
 		redirectTarget := "/"
 		uName := r.Form.Get("username")
-			pWord := r.Form.Get("password")
-			// verify credentials
-			if ok := client.UserExistsRpc(uName, pWord); ok {
-				fmt.Println(ok)
-				cookie.SetSession(uName, w)
-				redirectTarget += "home"
-			}
+		pWord := r.Form.Get("password")
+		// verify credentials
+		if ok := client.UserExistsRpc(uName, pWord); ok {
+			fmt.Println(ok)
+			cookie.SetSession(uName, w)
+			redirectTarget += "home"
+		}
 		http.Redirect(w, r, redirectTarget, http.StatusFound)
 	default:
 		fmt.Fprintf(w, "method not supported.")

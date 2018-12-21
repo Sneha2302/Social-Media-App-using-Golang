@@ -1,21 +1,21 @@
 package storage
 
 import (
-	pb "twitterPt2/gRpc/protobuff"
 	"fmt"
+	pb "social_media_app-golang/gRpc/protobuff"
 )
 
 type Twitter_User struct {
-	UName string
-	Pwd     string
-	Post    Tweets
-	Follow  []string
+	UName  string
+	Pwd    string
+	Post   Tweets
+	Follow []string
 }
 
 type Tweets []TwitterPosts
 
 type Page struct {
-	UName  string
+	UName    string
 	Follow   []string
 	Unfollow []string
 	Posts    []string
@@ -27,19 +27,18 @@ type TwitterPosts struct {
 	User     string
 }
 
-
 func ProtoToUser(user *pb.Twitter_User) Twitter_User {
 	var posts Tweets
-		fmt.Println(user)
+	fmt.Println(user)
 	for _, post := range user.Posts {
 		var tempPost = TwitterPosts{Contents: post.Contents, Date: post.Date, User: post.User}
 		posts = append(posts, tempPost)
 	}
 	var temp = Twitter_User{UName: user.UName, Pwd: user.Pwd, Post: posts, Follow: user.Follow}
-	 return temp
+	return temp
 }
 
-func UserToProto(temp Twitter_User) *pb.Twitter_User{
+func UserToProto(temp Twitter_User) *pb.Twitter_User {
 	var posts []*pb.TwitterPosts
 	for _, post := range temp.Post {
 		var tempPost = &pb.TwitterPosts{Contents: post.Contents, Date: post.Date, User: post.User}
@@ -68,7 +67,6 @@ func Contains(a []string, x string) bool {
 	return false
 }
 
-
 func Deletes(a []string, x string) []string {
 	var ret []string
 	for _, n := range a {
@@ -78,4 +76,3 @@ func Deletes(a []string, x string) []string {
 	}
 	return ret
 }
-

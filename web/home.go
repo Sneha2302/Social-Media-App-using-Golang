@@ -1,12 +1,12 @@
 package web
 
 import (
-	"twitterPt2/auth/cookie"
 	"fmt"
 	"html/template"
 	"net/http"
-	"twitterPt2/gRpc/client"
-	"twitterPt2/storage"
+	"social_media_app-golang/auth/cookie"
+	"social_media_app-golang/gRpc/client"
+	"social_media_app-golang/storage"
 	"time"
 )
 
@@ -41,7 +41,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 				if userTweet.Contents != "" {
 					userTweet.Date = time.Now().Unix()
 					userTweet.User = uName
-					userInfo.Post = append(userInfo.Post, userTweet) 
+					userInfo.Post = append(userInfo.Post, userTweet)
 					client.TweetRpc(uName, userInfo)
 					fmt.Println("Posts", userInfo.Post)
 				}

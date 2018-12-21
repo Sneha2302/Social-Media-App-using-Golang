@@ -19,6 +19,8 @@ service Web{
 	rpc Follow(FollowRequest) returns (BoolReply){}
 
 	rpc UnFollow(FollowRequest) returns (BoolReply){}
+	
+	rpc IsLeader(IsLeaderRequest) returns (BoolReply){}
 
 	rpc Join(JoinRequest) returns (BoolReply){}
 
